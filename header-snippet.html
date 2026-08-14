@@ -1,0 +1,54 @@
+<!--
+  Drop this in place of your existing .dash-header content.
+  Keep .top-datetime and .connection-card wherever they already are —
+  this just replaces/adds the centered title block with icon "figures" above it.
+-->
+<header class="dash-header">
+
+  <div class="top-datetime">
+    <div class="date-label">System Time</div>
+    <div id="currentDateTime">—</div>
+  </div>
+
+  <div class="header-title">
+
+    <div class="header-figures">
+      <!-- camera -->
+      <svg viewBox="0 0 24 24">
+        <path d="M4 8h3l2-2h6l2 2h3v11H4z" />
+        <circle cx="12" cy="13" r="3.2" />
+      </svg>
+
+      <span class="fig-divider"></span>
+
+      <!-- shield / lock -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
+        <path d="M9.5 12.5l1.8 1.8L15 10.5" />
+      </svg>
+
+      <span class="fig-divider"></span>
+
+      <!-- motion / signal -->
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="1.6" />
+        <path d="M8.5 8.5a5 5 0 0 1 7 0" />
+        <path d="M6 6a9 9 0 0 1 12 0" />
+      </svg>
+    </div>
+
+    <h1>Home <span>Security</span> System</h1>
+    <p>Live Monitoring &middot; Lighting &middot; Alarm &middot; Sensors</p>
+
+  </div>
+
+  <details class="connection-card">
+    <summary>Connection</summary>
+    <div class="conn-row">
+      <input type="text" placeholder="Device address" />
+      <button>Connect</button>
+    </div>
+    <div class="conn-status">Not connected</div>
+  </details>
+
+</header>
