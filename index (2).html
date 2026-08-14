@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ESP32 · Home Security System</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <div class="dashboard">
+
+    <!-- HEADER -->
+    <header class="dash-header">
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        ESP32 · HOME SECURITY SYSTEM
+      </div>
+
+      <div class="header-figures">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 8h3l2-2h6l2 2h3v11H4z" />
+          <circle cx="12" cy="13" r="3.2" />
+        </svg>
+
+        <span class="fig-divider"></span>
+
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
+          <path d="M9.5 12.5l1.8 1.8L15 10.5" />
+        </svg>
+
+        <span class="fig-divider"></span>
+
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="1.6" />
+          <path d="M8.5 8.5a5 5 0 0 1 7 0" />
+          <path d="M6 6a9 9 0 0 1 12 0" />
+        </svg>
+      </div>
+
+      <h1>
+        Home Security <span>System</span>
+      </h1>
+
+      <div class="datetime">
+        <div class="date-label">CURRENT DATE AND TIME</div>
+        <div id="currentDateTime">Loading...</div>
+      </div>
+
+      <!-- ESP32 CONNECTION -->
+      <details class="connection-card">
+
+        <summary>ESP32 Connection</summary>
+
+        <div class="conn-row">
+
+          <input
+            id="espIp"
+            type="text"
+            placeholder="192.168.1.50"
+          >
+
+          <button id="saveIp">
+            Save
+          </button>
+
+        </div>
+
+        <div
+          class="conn-status"
+          id="connStatus"
+        >
+          Not connected yet.
+        </div>
+
+      </details>
+
+    </header>
+
+
+    <!-- HOUSE LIGHTS -->
+    <section class="lights-section">
+
+      <div class="section-header">
+
+        <div class="eyebrow">
+          ESP32 · LED LIGHTING
+        </div>
+
+        <h2>House Lights</h2>
+
+      </div>
+
+
+      <div class="led-grid">
+
+        <!-- LIVING ROOM -->
+        <section
+          class="panel"
+          data-color="red"
+          data-pin="18"
+        >
+
+          <div class="panel-eyebrow">
+            ESP32 · GPIO 18
+          </div>
+
+          <h2>Living Room Light</h2>
+
+          <div class="bulb-stage">
+
+            <div class="bulb-wrap">
+
+              <div class="bulb-glow"></div>
+
+              <div class="bulb"></div>
+
+            </div>
+
+          </div>
+
+          <div class="status-line">
+            Light is
+            <b class="state-label">OFF</b>
+          </div>
+
+          <div class="controls">
+
+            <button class="toggle btn-on">
+              Turn On
+            </button>
+
+            <button class="toggle btn-off">
+              Turn Off
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- BEDROOM -->
+        <section
+          class="panel"
+          data-color="green"
+          data-pin="19"
+        >
+
+          <div class="panel-eyebrow">
+            ESP32 · GPIO 19
+          </div>
+
+          <h2>Bedroom Light</h2>
+
+          <div class="bulb-stage">
+
+            <div class="bulb-wrap">
+
+              <div class="bulb-glow"></div>
+
+              <div class="bulb"></div>
+
+            </div>
+
+          </div>
+
+          <div class="status-line">
+            Light is
+            <b class="state-label">OFF</b>
+          </div>
+
+          <div class="controls">
+
+            <button class="toggle btn-on">
+              Turn On
+            </button>
+
+            <button class="toggle btn-off">
+              Turn Off
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- PORCH -->
+        <section
+          class="panel"
+          data-color="yellow"
+          data-pin="21"
+        >
+
+          <div class="panel-eyebrow">
+            ESP32 · GPIO 21
+          </div>
+
+          <h2>Porch Light</h2>
+
+          <div class="bulb-stage">
+
+            <div class="bulb-wrap">
+
+              <div class="bulb-glow"></div>
+
+              <div class="bulb"></div>
+
+            </div>
+
+          </div>
+
+          <div class="status-line">
+            Light is
+            <b class="state-label">OFF</b>
+          </div>
+
+          <div class="controls">
+
+            <button class="toggle btn-on">
+              Turn On
+            </button>
+
+            <button class="toggle btn-off">
+              Turn Off
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- SECURITY / SENSOR AREA -->
+    <section class="security-section">
+
+      <div class="section-header">
+
+        <div class="eyebrow">
+          ESP32 · SECURITY MONITOR
+        </div>
+
+        <h2>Security Status</h2>
+
+      </div>
+
+
+      <div class="security-grid">
+
+        <!-- MOTION SENSOR -->
+        <section class="system-panel motion-panel">
+
+          <div class="panel-eyebrow">
+            ESP32 · MOTION SENSOR
+          </div>
+
+          <h2>Motion Detection</h2>
+
+          <div
+            class="sensor-indicator safe"
+            id="motionIndicator"
+          >
+            SAFE
+          </div>
+
+          <div class="status-line">
+            Motion is
+            <b id="motionStatus">NOT DETECTED</b>
+          </div>
+
+        </section>
+
+
+        <!-- TEMPERATURE -->
+        <section class="system-panel temperature-panel">
+
+          <div class="panel-eyebrow">
+            ESP32 · TEMPERATURE SENSOR
+          </div>
+
+          <h2>Temperature</h2>
+
+          <div class="temperature-value">
+
+            <span id="temperature">
+              --
+            </span>
+
+            <span>
+              °C
+            </span>
+
+          </div>
+
+          <div class="status-line">
+            Current room temperature
+          </div>
+
+        </section>
+
+
+        <!-- SOUND / ALARM -->
+        <section class="system-panel sound-panel">
+
+          <div class="panel-eyebrow">
+            ESP32 · BUZZER
+          </div>
+
+          <h2>Sound Alarm</h2>
+
+          <div
+            class="sound-status"
+            id="soundStatus"
+          >
+            OFF
+          </div>
+
+          <div class="status-line">
+            Buzzer is
+            <b id="buzzerState">OFF</b>
+          </div>
+
+          <div class="controls">
+
+            <button
+              id="soundOn"
+              class="toggle btn-on"
+            >
+              Sound On
+            </button>
+
+            <button
+              id="soundOff"
+              class="toggle btn-off"
+            >
+              Sound Off
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- OLED -->
+        <section class="system-panel oled-panel">
+
+          <div class="panel-eyebrow">
+            ESP32 · OLED DISPLAY
+          </div>
+
+          <h2>OLED Display</h2>
+
+          <div class="oled-screen">
+
+            <div class="oled-title">
+              HOME SECURITY
+            </div>
+
+            <div>
+              TEMP:
+              <span id="oledTemperature">
+                --
+              </span>
+              °C
+            </div>
+
+            <div>
+              MOTION:
+              <span id="oledMotion">
+                SAFE
+              </span>
+            </div>
+
+            <div>
+              ALARM:
+              <span id="oledAlarm">
+                OFF
+              </span>
+            </div>
+
+          </div>
+
+          <div class="status-line">
+            OLED is
+            <b id="oledStatus">CONNECTED</b>
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- ALARM STATUS -->
+    <section class="alarm-section">
+
+      <div class="panel-eyebrow">
+        ESP32 · ALARM SYSTEM
+      </div>
+
+      <h2>Alarm Status</h2>
+
+      <div class="alarm-card">
+
+        <div class="alarm-info">
+
+          <div class="section-title">
+            CURRENT STATUS
+          </div>
+
+          <div
+            id="alarmStatus"
+            class="alarm-state"
+          >
+            OFF
+          </div>
+
+        </div>
+
+        <div
+          id="alarmIndicator"
+          class="alarm-indicator safe"
+        >
+          SAFE
+        </div>
+
+      </div>
+
+
+      <div class="controls">
+
+        <button
+          id="alarmOn"
+          class="toggle btn-on"
+        >
+          Alarm ON
+        </button>
+
+        <button
+          id="alarmOff"
+          class="toggle btn-off"
+        >
+          Alarm OFF
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- SYSTEM SUMMARY -->
+    <section class="system-summary">
+
+      <div class="summary-item">
+
+        <span class="summary-label">
+          MOTION
+        </span>
+
+        <span
+          id="summaryMotion"
+          class="summary-status safe"
+        >
+          SAFE
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <span class="summary-label">
+          TEMPERATURE
+        </span>
+
+        <span id="summaryTemperature">
+          -- °C
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <span class="summary-label">
+          SOUND
+        </span>
+
+        <span id="summarySound">
+          OFF
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <span class="summary-label">
+          OLED
+        </span>
+
+        <span id="summaryOled">
+          CONNECTED
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <span class="summary-label">
+          ALARM
+        </span>
+
+        <span
+          id="summaryAlarm"
+          class="summary-status safe"
+        >
+          OFF
+        </span>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ESP32 / ARDUINO CONNECTION -->
+  <script src="arduino.js" defer></script>
+
+  <!-- DASHBOARD JAVASCRIPT -->
+  <script src="script.js" defer></script>
+
+</body>
+</html>
